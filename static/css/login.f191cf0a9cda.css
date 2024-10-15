@@ -1,0 +1,53 @@
+.outer-container {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  background-color: white;
+  border-radius: 2%;
+  position: relative;
+  left: 10%;
+  padding-bottom: 10vw;
+  margin-top: 25%;
+}
+.container-fluid > h2 {
+  text-align: center;
+}
+.container-fluid > h4 {
+  text-align: center;
+  color: #B59410;
+}
+
+form > .login-btn {
+  text-align: center;
+  background-color: #B59410;
+  color: white;
+  font-weight: bold;
+  width: 97%;
+  padding: 2vw;
+  border: none;
+  border-radius: 50vw;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  top: -1vw;
+}
+form > input {
+  padding: 2vw;
+  margin: 1vw;
+  width: 90%;
+}
+
+.show-hide {
+  position: relative;
+  top: -30px;
+  color: lightgrey;
+  left: 80%;
+}
+body {
+  background-color: lightgrey;
+  font-family: 'Roboto', sans-serif;
+}
+.get-p{
+  text-decoration: none;
+  color: black;
+}

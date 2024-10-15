@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Buy Data</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container{
+            max-width: 350px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .container label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        .container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .container input[type="text"],
+        .container input[type="tel"],
+        .container input[type="number"]{
+            width: 94%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .network-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .network-icons img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .network-icons img:hover {
+            border-color: #007bff;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff1493;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .container button:hover {
+            background-color: #ff0090;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #333;
+            padding: 10px 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .navbar a:hover {
+            background-color: #444;
+        }
+
+        .navbar a.active {
+            background-color: #007bff;
+        }
+
+        .navbar img {
+            width: 20px;
+            height: 20px;
+        }
+        .spinner-border {
+      display: inline-block;
+      width: 1rem; /* Adjust size for button */
+      height: 1rem;
+      vertical-align: text-bottom;
+      border: 0.15em solid white;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border 0.75s linear infinite;
+    }
+
+    @keyframes spinner-border {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .submit-data .spinner-border {
+      margin-left: 0.5rem;
+    }
+    .error {
+      color: red;
+      
+    }
+   
+    .down-fixed {
+        position: fixed;
+        bottom: 0;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        left: 0;
+        text-align: center;
+      }
+
+      .down-fixed > div {
+        text-align: center;
+        cursor: pointer;
+      }
+      .down-fixed > * {
+        padding: 1rem;
+      }
+      body .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    left: 2.2rem;
+    top: 20%;
+    display: none;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.pin-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.pin-box {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #333;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pin-inputs input {
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.modal-content button:hover {
+    background-color: #555;
+}
+
+.modal-content p {
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Airtime Topup</h2>
+        <div class="network-icons">
+            <img id="airtel" src="https://paystar.pythonanywhere.com/static/airtel.png" alt="Airtel">
+            <img id="mtn" src="https://paystar.pythonanywhere.com/static/mtn.png" alt="MTN">
+            <img id="glo" src="https://paystar.pythonanywhere.com/static/glo.png" alt="Glo">
+            <img id="9mobile" src="https://paystar.pythonanywhere.com/static/9mobile.png" alt="9mobile">
+        </div>
+      <form method="POST" action="/airtime/purchase" id="submitor">
+        {% csrf_token %}
+        <label for="network">Network</label>
+        <select required class="selecting" id="network" name="network">
+            <option>Select Network</option>
+            <option value="airtel">Airtel</option>
+            <option value="mtn">MTN</option>
+            <option value="glo">Glo</option>
+            <option value="9mobile">9mobile</option>
+        </select>
+        
+        <label for="phoneNumber">Phone Number</label>
+        <input type="tel" class="fixed-price" name="phone" id="phoneNumber" placeholder="Phone Number">
+        
+        <label for="amount">Amount</label>
+        <input id="fixed-price" class="fixed-price" type="number" autocomplete="off" name="amount" placeholder="Amount to pay">
+        
+        <button id="trigger" class="submit-data" type="submit"><span class="visually-hidden">Buy Data</span>
+           <div class="add-role" role="status">
+          </div></button>
+          <p class="error"></p>
+      </form>
+    </div>
+   <div class="modal">
+    <div class="modal-content">
+        <h2>Enter Your PIN</h2>
+        <p>Note Default Pin: 1111</p>
+        <div class="pin-inputs">
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin1" oninput="moveToNext(this, 'pin2')">
+            </div>
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin2" oninput="moveToNext(this, 'pin3')">
+            </div>
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin3" oninput="moveToNext(this, 'pin4')">
+            </div>
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin4" oninput="moveToNext(this, 'submit')">
+            </div>
+             <input type="hidden" id="pins" name="pin">
+        </div>
+        <button id="submit" onclick="submitPin()" class="btn-submit">Submit</button>
+    </div>
+</div>
+    <section class="down-fixed" style="z-index: 9999999999">
+      <div id="click1">
+        <i class="fa fa-home"></i><br />
+        <small>Home</small>
+      </div>
+      <div id="click2">
+        <i class="fa fa-newspaper-o"></i><br />
+        <small>Transaction</small>
+      </div>
+      <div id="click3">
+        <i class="fa fa-bell"></i><br />
+        <small>Notification</small>
+      </div>
+      <div id="click4">
+        <i class="fa fa-lock"></i><br/>
+        <small>Logout</small>
+      </div>
+    </section>
+    <script>
+      function moveToNext(currentInput, nextInputId) {
+          if (currentInput.value.length === currentInput.maxLength) {
+            document.getElementById(nextInputId).focus();
+          }
+        }
+        function submitPin() {
+          let pin = '';
+          for (let i = 1; i <= 4; i++) {
+            pin += document.getElementById('pin' + i).value;
+          }
+          $("#pins").val(pin)
+        }
+      $(document).ready(() => {
+        let fst = document.getElementById("click1");
+        let scd = document.getElementById("click2");
+        let trd = document.getElementById("click3");
+        let frt = document.getElementById("click4");
+        
+       fst.addEventListener("click", () =>{
+         let element = document.createElement("a");
+         element.setAttribute("href", "/home");
+         element.click();
+      });
+      scd.addEventListener("click", () =>{
+       let element = document.createElement("a");
+       element.setAttribute("href", "/history");
+       element.click();
+     });
+    trd.addEventListener("click", () =>{
+      let element = document.createElement("a");
+      element.setAttribute("href", "/notification");
+      element.click();
+    });
+    frt.addEventListener("click", () =>{
+      let element = document.createElement("a");
+      element.setAttribute("href", "/logout");
+      element.click();
+   });
+    // Form submission event with validation
+    $("form").on("submit", function(e) {
+        let bala = "{{ balanced|escapejs }}";
+        // Only validate when triggered by the form, not by the button
+        if (!$(this).data("skipValidation")) {
+            e.preventDefault();
+            
+            let toSubmit = true;
+            let message = "";
+            let serialize = $(this).serializeArray();
+
+            // Form field validation
+            $.each(serialize, (indx, field) => {
+                if (!field.value.trim()) {
+                    message = field.name + " cannot be empty.\n";
+                    toSubmit = false;
+                }
+                if (field.name === "network" || field.name === "phone" || field.name === "amount") {
+                    if (!field.value) {
+                        message = "Please enter a valid option for " + field.name;
+                        toSubmit = false;
+                    }
+                }
+                if (field.name === "amount"){
+                  if (parseFloat(field.value) > parseFloat(bala)) {
+                    message = "Insufficient Balance";
+                    toSubmit = false;
+                  }
+                }
+                if (field.name === "amount") {
+                    if (field.value < 100) {
+                        message = "Amount cannot be less than 100";
+                        toSubmit = false;
+                    }
+                }
+            });
+
+            if (!toSubmit) {
+                $(".error").text(message);
+                $(".modal-content").hide();
+                return false; // Prevent form submission
+            } else {
+                // Show modal if validation is passed
+                $(".container").css({"background-color": "#f0f0f0", "filter": "blur(5px)"});
+                $(".modal-content").show();
+            }
+        }
+    });
+
+    // Pin validation logic
+    $(".btn-submit").on("click", () => {
+        let uxrs = "{{ pin|escapejs }}";  // Correct pin from Django
+        let pins = $("#pins").val();       // Pin entered by user
+        
+        if (pins === uxrs) {
+            // If pin is correct, trigger form submission
+            $("form").data("skipValidation", true);  // Bypass validation when submitting
+            $("form").submit();  // Submit form
+            $(".container").css({"background-color": "#ffffff", "filter": "blur(0px)"});
+            $("#pin1").val("");
+            $("#pin2").val("");
+            $("#pin3").val("");
+            $("#pin4").val("");
+            $(".modal-content").hide();
+            $("#trigger").attr("disabled", true);
+            $("#trigger").css({"background-color":"grey"});
+            $(".visually-hidden").text("Processing...");
+            $(".add-role").addClass("spinner-border");
+        } else {
+            // Pin is incorrect
+            $(".error").text("Incorrect pin, please try again.");
+            $(".modal-content").hide();
+            $(".container").css({"filter":"blur(0)", "background-color":"#ffffff"})
+            $("#pin1").val("");
+            $("#pin2").val("");
+            $("#pin3").val("");
+            $("#pin4").val("");
+            $
+        }
+    });
+
+    // Network selection shortcuts
+    $("#airtel").on("click", () => {
+        $("select").val("airtel");
+    });
+    $("#mtn").on("click", () => {
+        $("select").val("mtn");
+    });
+    $("#glo").on("click", () => {
+        $("select").val("glo");
+    });
+    $("#9mobile").on("click", () => {
+        $("select").val("9mobile");
+    });
+});
+    </script>
+</body>
+</html>

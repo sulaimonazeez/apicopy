@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        body {
+          font-family: 'Roboto', sans-serif;
+          background-color: #f0f0f0;
+          margin: 0;
+          padding: 0;
+        }
+
+        .container {
+            max-width: 320px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .container label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        .container select{
+            width: 100%;
+            padding: 0.85rem;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            outline: none;
+        }
+        .container input[type="text"], .container input[type="tel"], .container input[type="number"] {
+            width: 91%;
+            padding: 0.85rem;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            outline: none;
+        }
+        .network-icons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .network-icons img {
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .network-icons img:hover {
+            border-color: #007bff;
+        }
+
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff1493;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .error {
+            color: red;
+        }
+        .addBlur {
+          filter: blur(5px);
+        }
+        .user-message {
+          color: red;
+          font-weight: bold;
+          margin-top: -5px;
+        }
+        .modaled {
+  background-color: white;
+  padding: 2vw;
+  border-radius: 4vw;
+  position: fixed;
+  top: 20%;
+  z-index: 9999999;
+  display: none;
+  padding-bottom: 1.2rem;
+  max-width: 350px;
+  margin: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.btn-submit {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+.pop-view {
+  display: flex;
+  justify-content: center;
+}
+.pin {
+  width: 92%;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  outline: none;
+  border: solid 1px grey;
+  border-radius: 5px;
+}
+.spinner-border {
+      display: inline-block;
+      width: 1rem; /* Adjust size for button */
+      height: 1rem;
+      vertical-align: text-bottom;
+      border: 0.15em solid white;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border 0.75s linear infinite;
+    }
+    
+
+    @keyframes spinner-border {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    .down-fixed {
+        position: fixed;
+        bottom: 0;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        left: 0;
+        text-align: center;
+      }
+
+      .down-fixed > div {
+        text-align: center;
+        cursor: pointer;
+      }
+      .down-fixed > * {
+        padding: 1rem;
+      }
+body .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    left: 2.2rem;
+    top: 20%;
+    display: none;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+}
+
+.pin-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.pin-box {
+    width: 60px;
+    height: 60px;
+    border: 3px solid #333;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pin-inputs input {
+    width: 100%;
+    height: 100%;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.modal-content button:hover {
+    background-color: #555;
+}
+
+.modal-content p {
+  font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Buy Data</h2>
+        <div class="network-icons">
+            <img id="airtel" src="https://paystar.pythonanywhere.com/static/airtel.png" alt="Airtel">
+            <img id="mtn" src="https://paystar.pythonanywhere.com/static/mtn.png" alt="MTN">
+            <img id="glo" src="https://paystar.pythonanywhere.com/static/glo.png" alt="Glo">
+            <img id="9mobile" src="https://paystar.pythonanywhere.com/static/9mobile.png" alt="9mobile">
+        </div>
+        <form method="POST" action="/purchase" id="submitor">
+            {% csrf_token %}
+            <label for="network">Network</label>
+            <select required id="network" name="network">
+                <option value="" disabled selected>Select Network</option>
+                <option value="airtel">Airtel</option>
+                <option value="mtn">MTN</option>
+                <option value="glo">Glo</option>
+                <option value="mobile9">9mobile</option>
+            </select>
+            
+            <label for="dataType">Data Type</label>
+            <select required id="dataType" name="sme">
+                <option value="" disabled selected>Select Data Type</option>
+            </select>
+            
+            <label for="dataPlan">Data Plan</label>
+            <select required id="dataPlan" name="dataType">
+                <option value="" disabled selected>Select Data Plan</option>
+            </select>
+            
+            <label for="phoneNumber">Phone Number</label>
+            <input type="tel" name="phone" id="phoneNumber" placeholder="Phone Number">
+            
+            <label for="amount">Amount</label>
+            <input readonly id="fixed-price" type="number" name="amount" placeholder="Amount to pay">
+            <p class="user-message"></p>
+            <button id="trigger" class="submit-data" type="submit"><span class="visually-hidden">Buy Data</span>
+           <div class="add-role" role="status">
+          </div></button>
+            <p class="error"></p>
+        </form>
+        
+    </div><br /><br /><br />
+    <div class="modal">
+    <div class="modal-content">
+        <h2>Enter Your PIN</h2>
+        <p>Note Default Pin: 1111</p>
+        <div class="pin-inputs">
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin1" oninput="moveToNext(this, 'pin2')">
+            </div>
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin2" oninput="moveToNext(this, 'pin3')">
+            </div>
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin3" oninput="moveToNext(this, 'pin4')">
+            </div>
+            <div class="pin-box">
+                <input autocomplete="off" type="password" maxlength="1" id="pin4" oninput="moveToNext(this, 'submit')">
+            </div>
+             <input type="hidden" id="pins" name="pin">
+        </div>
+        <button id="submit" onclick="submitPin()" class="btn-submit">Submit</button>
+    </div>
+</div>
+    <section class="down-fixed" style="z-index: 9999999999">
+      <div id="click1">
+        <i class="fa fa-home"></i><br />
+        <small>Home</small>
+      </div>
+      <div id="click2">
+        <i class="fa fa-newspaper-o"></i><br />
+        <small>Transaction</small>
+      </div>
+      <div id="click3">
+        <i class="fa fa-bell"></i><br />
+        <small>Notification</small>
+      </div>
+      <div id="click4">
+        <i class="fa fa-lock"></i><br/>
+        <small>Logout</small>
+      </div>
+    </section>
+    <script>
+    function moveToNext(currentInput, nextInputId) {
+          if (currentInput.value.length === currentInput.maxLength) {
+            document.getElementById(nextInputId).focus();
+          }
+        }
+        function submitPin() {
+          let pin = '';
+          for (let i = 1; i <= 4; i++) {
+            pin += document.getElementById('pin' + i).value;
+          }
+          $("#pins").val(pin)
+        }
+    $(document).ready(()=>{
+      let fst = document.getElementById("click1");
+        let scd = document.getElementById("click2");
+        let trd = document.getElementById("click3");
+        let frt = document.getElementById("click4");
+       fst.addEventListener("click", () =>{
+         let element = document.createElement("a");
+         element.setAttribute("href", "/home");
+         element.click();
+      });
+      scd.addEventListener("click", () =>{
+       let element = document.createElement("a");
+       element.setAttribute("href", "/history");
+       element.click();
+     });
+    trd.addEventListener("click", () =>{
+      let element = document.createElement("a");
+      element.setAttribute("href", "/notification");
+      element.click();
+    });
+    frt.addEventListener("click", () =>{
+      let element = document.createElement("a");
+      element.setAttribute("href", "/logout");
+      element.click();
+   });
+     const dataPlans = {
+        airtel: {
+            corporate: [
+                ["AIRTEL 500MB CORPORATE - 30 Days", 144],
+                ["AIRTEL 1GB CORPORATE - 30 Days", 288],
+                ["AIRTEL 2GB CORPORATE - 30 Days", 580],
+                ["AIRTEL 5GB CORPORATE - 30 Days", 1450],
+                ["AIRTEL 10GB CORPORATE - 30 Days", 2900]
+            ],
+            promo: [
+                ["AIRTEL 100MB PROMO - 1 Day", 70],
+                ["AIRTEL 300MB PROMO - 2 Days", 132],
+                ["AIRTEL 1GB PROMO - 2 Days", 238],
+                ["AIRTEL 2GB PROMO - 2 Days", 350],
+                ["AIRTEL 3GB PROMO - 7 Days", 560],
+                ["AIRTEL 4GB PROMO - 30 Days", 1070],
+                ["AIRTEL 10GB PROMO - 30 Days", 2095],
+                ["AIRTEL 15GB PROMO - 30 Days", 3150]
+            ]
+        },
+        mtn: {
+            sme: [
+                ["MTN 500MB SME - 30 Days", 138],
+                ["MTN 1GB SME - 30 Days", 270],
+                ["MTN 2GB SME - 30 Days", 542],
+                ["MTN 3GB SME - 30 Days", 810],
+                ["MTN 5GB SME - 30 Days", 1400],
+                ["MTN 10GB SME - 30 Days", 2700]
+            ],
+            corporate: [
+                ["MTN 500MB CORPORATE - 30 Days", 142],
+                ["MTN 1GB CORPORATE - 30 Days", 280],
+                ["MTN 2GB CORPORATE - 30 Days", 563],
+                ["MTN 3GB CORPORATE - 30 Days", 850],
+                ["MTN 5GB CORPORATE - 30 Days", 1400],
+                ["MTN 10GB CORPORATE - 30 Days", 2800]
+            ]
+        },
+        glo: {
+            corporate: [
+                ["GLO 500MB CORPORATE - 30 Days", 143],
+                ["GLO 1GB CORPORATE - 30 Days", 280],
+                ["GLO 2GB CORPORATE - 30 Days", 575],
+                ["GLO 3GB CORPORATE - 30 Days", 850],
+                ["GLO 5GB CORPORATE - 30 Days", 1400],
+                ["GLO 10GB CORPORATE - 30 Days", 2800]
+            ]
+        },
+        mobile9: {
+            corporate: [
+                ["9MOBILE 500MB CORPORATE - 30 Days", 80],
+                ["9MOBILE 1GB CORPORATE - 30 Days", 148],
+                ["9MOBILE 2GB CORPORATE - 30 Days", 300],
+                ["9MOBILE 3GB CORPORATE - 30 Days", 457],
+                ["9MOBILE 4GB CORPORATE - 30 Days", 590],
+                ["9MOBILE 5GB CORPORATE - 30 Days", 750],
+                ["9MOBILE 10GB CORPORATE - 30 Days", 1475]
+            ]
+        }
+    };
+
+const availability = {
+        airtel: ["corporate", "promo"],
+        mtn: ["sme", "corporate", "promo"],
+        glo: ["corporate"],
+        mobile9: ["corporate"]
+    };
+
+const networkSelect = $("#network");
+const dataTypeSelect = $("#dataType");
+const dataPlanSelect = $("#dataPlan");
+const amountInput = $("#fixed-price");
+
+networkSelect.on("change", updateDataTypes);
+dataTypeSelect.on("change", updateDataPlans);
+
+function updateDataTypes() {
+    const network = networkSelect.val();
+    dataTypeSelect.empty().append('<option value="" disabled selected>Select Data Type</option>');
+    
+    if (network) {
+        const availableDataTypes = availability[network];
+        availableDataTypes.forEach(type => {
+            const option = $('<option></option>').attr('value', type).text(capitalize(type));
+            dataTypeSelect.append(option);
+        });
+    }
+    
+    dataPlanSelect.empty().append('<option value="" disabled selected>Select Data Plan</option>');
+    amountInput.val('');
+}
+
+function updateDataPlans() {
+    const network = networkSelect.val();
+    const dataType = dataTypeSelect.val();
+    
+    dataPlanSelect.empty().append('<option value="" disabled selected>Select Data Plan</option>');
+    
+    if (network && dataType) {
+        const plans = dataPlans[network][dataType];
+        plans.forEach(plan => {
+            const option = $('<option></option>').attr('value', plan[0]).attr("mydatas", plan[1]).text(plan[0]);
+            dataPlanSelect.append(option);
+        });
+    }
+    
+    amountInput.val('');
+}
+
+dataPlanSelect.on("change", function() {
+    const selectedPlan = dataPlanSelect.find('option:selected').attr('mydatas');
+    amountInput.val(selectedPlan || '');
+});
+
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
+
+$("#airtel").on("click", () => {
+        networkSelect.val("airtel").trigger("change");
+    });
+
+    $("#mtn").on("click", () => {
+        networkSelect.val("mtn").trigger("change");
+    });
+
+    $("#glo").on("click", () => {
+        networkSelect.val("glo").trigger("change");
+    });
+
+    $("#9mobile").on("click", () => {
+        networkSelect.val("mobile9").trigger("change");
+    });
+    $("#trigger").on("click", ()=>{
+       $(".modal-content").show();
+       $(".container").addClass("addBlur");
+       $(".visually-hidden").text("Processing... ");
+       $(".add-role").addClass("spinner-border");
+       $("#trigger").attr("disabled", true);
+       $("#trigger").css({"background-color":"grey", "color":"white"})
+    });
+    $("#submitor").on("submit", function(event) {
+        event.preventDefault();
+    });
+    $("#make").on("submit", (e)=>{
+      e.preventDefault();
+    })
+    var isOpen = false;
+    let isValidate = "{{ pin|escapejs }}";
+    let bala = "{{ balanced|escapejs }}";
+
+    $(".btn-submit").on("click", (event) => {
+        event.preventDefault();
+        let cRC = $("#pins").val();
+        let str = cRC.toString();
+
+        if (str === isValidate) {
+            $(".modaled").hide();
+            $(".container").removeClass("addBlur");
+
+            $("#submitor").off("submit").submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serializeArray();
+                var isValid = true;
+                var errorMessage = "";
+
+                $.each(formData, function(index, field) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        errorMessage += field.name + " cannot be empty.\n";
+                    }
+
+                    if (field.name === "amount") {
+                        let amt = field.value.replace("₦", "");
+                        if (parseFloat(amt) > parseFloat(bala)) {
+                            errorMessage = "Insufficient Balance please add funds";
+                            isValid = false;
+                        }
+                    }
+
+                    if (field.name === "sme" || field.name === "dataType" || field.name === "phone") {
+                        if (!field.value) {
+                            isValid = false;
+                            errorMessage += "Please select a valid option for " + field.name + ".\n";
+                        }
+                    }
+                });
+
+                if (!isValid) {
+                    $(".user-message").text(errorMessage);
+                    $(".modal-content").hide();
+                    $(".visually-hidden").text("Buy Data");
+                    $(".add-role").removeClass("spinner-border");
+                    $("#trigger").css({"background-color":"#ff1493"});
+                    $("#trigger").attr("disabled", false);
+                     $(".container").removeClass("addBlur");
+                     $("#pins").val("");
+                     $("#pin1").val("");
+                     $("#pin2").val("");
+                     $("#pin3").val("");
+                     $("#pin4").val("");
+                } else {
+                    $(this).unbind('submit').submit(); 
+                }
+            });
+
+            $("#submitor").submit();
+            $(".modal-content").hide();
+            $("#trigger").css({"background-color":"grey", "color":"white"})
+            $("#trigger").attr("disabled", true);
+            $(".container").removeClass("addBlur");
+        } else {
+            $(".modal-content").hide();
+            $(".visually-hidden").text("Buy Data");
+            $(".add-role").removeClass("spinner-border");
+            $("#trigger").css({"background-color":"#ff1493"});
+            $("#pin1").val("");
+            $("#pin2").val("");
+            $("#pin3").val("");
+            $("#pin4").val("");
+            $("#trigger").attr("disabled", false);
+            $(".user-message").text("Incorrect Pin");
+            $(".container").removeClass("addBlur");
+        }
+    });
+   })
+    </script>
+</body>
+</html>

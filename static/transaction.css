@@ -1,0 +1,102 @@
+.custom-search {
+  background-color: white;
+  width: 92%;
+  border-radius: 5vw;
+  padding: 2vw;
+  height: 13rem;
+  color: black;
+  margin: 2vw;
+  margin-top: 6vw;
+  line-height: 0.5;
+}
+.custom-search > h4 {
+  position: relative;
+  top: -1vw;
+}
+.custom-search > * {
+  position: relative;
+  left: 2vw;
+}
+.custom-search > .to-grey {
+  color: grey;
+}
+.custom-search > .to-red {
+  2: red;
+}
+
+form > * {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+}
+form > .search {
+  border: solid 0.5px lightgrey;
+}
+form > .submit {
+  background-color: blue;
+  color: white;
+  border: none;
+  width: 6rem;
+  /* font-weight: bold; */
+}
+
+.search-result {
+  background-color: white;
+  width: 92%;
+  border-radius: 5vw;
+  height: auto;
+  padding: 2vw;
+  color: black;
+  margin: 2vw;
+  margin-top: 6vw;
+}
+
+.jst-content {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  color: black;
+}
+.for-wifi > .fa-wifi {
+  background-color: lightblue;
+  color: white;
+  padding:0.75rem;
+  border-radius: 3vw;
+  margin-top: 3.5rem;
+}
+
+
+.data-desc {
+  font-size: 12px;
+  font-weight: bold;
+  width: 60vw;
+  color: black;
+}
+
+.data-amt {
+  text-align: right;
+  position: relative;
+  right: 2vw;
+}
+.data-amt > small {
+  color: green;
+  font-size: 10px;
+  position: relative;
+  top: -0.75rem;
+}
+#status {
+  color: white;
+  background-color: green;
+  font-size: 5px;
+  height: 5px;
+  width: 5px;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+
+@media only screen and (min-width: 768px) {
+  .data-wifi {
+    position: relative;
+    left: -4rem;
+  }
+}

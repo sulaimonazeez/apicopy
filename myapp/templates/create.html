@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Account Create</title>
+    <meta name="google-site-verification" content="xvuwWcwMzYkjAaj94DZz4SPfl4iM4Bb8JzW28t0Xlb4" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'IMG-20240819-WA0006.jpg' %}" type="image/jpg">
+    <link rel="apple-touch-icon" href="{% static 'IMG-20240819-WA0006.jpg' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        .container {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.signup-box, .login-box {
+    text-align: center;
+}
+
+.logo img {
+    width: 80px;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #333333;
+}
+
+p {
+    color: #888888;
+    margin: 5px 0 20px;
+}
+
+.input-group {
+    position: relative;
+    
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #dddddd;
+    border-radius: 30px;
+    background-color: #f3f3f3;
+    font-size: 16px;
+    outline: none;
+}
+
+input[type="text"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #888888;
+}
+
+.btn {
+    background-color: #FFD400;
+    color: #000000;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: #e0b800;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    cursor: pointer;
+}
+
+.footer {
+    margin-top: 20px;
+    color: #888888;
+}
+
+.footer a {
+    color: #FFD400;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+.keep {
+  color: #ffd400;
+}
+
+.spinner-border {
+      display: inline-block;
+      width: 1rem; /* Adjust size for button */
+      height: 1rem;
+      vertical-align: text-bottom;
+      border: 0.15em solid white;
+      border-right-color: transparent;
+      border-radius: 50%;
+      animation: spinner-border 0.75s linear infinite;
+    }
+    
+    .error-message {
+      color: red;
+      font-weight: bold;
+    }
+
+    @keyframes spinner-border {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+    </style>
+  </head>
+<body>
+    <div class="container">
+        <div class="signup-box">
+            <h1>Create Your Account</h1>
+            <p class="keep">Join us and keep your data safe</p>
+            <form method="POST" action="/accounts/create/">
+              {% csrf_token %}
+                <div class="input-group">
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" id="phone" name="phone_number" placeholder="Phone Number" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="firstname" name="first_name" placeholder="First name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="lastname" name="last_name" placeholder="Last name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="pass" name="password1" placeholder="Password" required>
+                    <span id="toggler" class="toggle-password" >👁️</span>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="passed" name="password2" placeholder="Confirm Password" required>
+                    <span id="togglers" class="toggle-password">👁️</span>
+                </div>
+                <button type="submit" class="btn"><span class="visually-hidden">CREATE ACCOUNT</span>
+                 <i class="add-role" role="status"></i>
+                 </button>
+            </form>
+            <p class="error-message">{{ error }}</p>
+            <div class="footer">
+                <p>Already have an account? <a href="/accounts/login" class="login">Login!</a></p>
+            </div>
+        </div>
+    </div>
+      <script>
+     $(document).ready(() => {
+    let toggle = document.getElementById("toggler");
+    let password = document.getElementById("pass");
+    let toggles = document.getElementById("togglers");
+    let passed = document.getElementById("passed");
+    
+    
+    toggle.addEventListener("click", () => {
+        if (password.type === "password") {
+            password.type = "text";
+            toggle.textContent = "🙈";
+        } else {
+            password.type = "password";
+            toggle.textContent = "👁️";
+        }
+    });
+    
+    toggles.addEventListener("click", () => {
+        if (passed.type === "password") {
+            passed.type = "text";
+            toggles.textContent = "🙈";
+        } else {
+            passed.type = "password";
+            toggles.textContent = "👁️";
+        }
+    });
+    $(".btn").on("click", (e) => {
+        e.preventDefault();  // Prevent the form from submitting immediately
+        let username = $("#email").val();
+        let passwordVal = $("#pass").val();
+        let passwordTwo = $("#passed").val();
+        let phone = $("#phone").val();
+        let firstname = $("#firstname").val();
+        
+
+        if (username && passwordVal && phone && firstname && passwordTwo) {
+            $(".btn").css({ "background-color": "grey", "color": "white" });
+            $(".btn").attr('disabled', true);
+            $(".visually-hidden").text("Creating...");
+            $(".add-role").addClass("spinner-border");
+            $('form').submit();
+        } else {
+            $(".btn").css({ "background-color": "#FFD400", "color": "white" });
+            $(".btn").attr('disabled', false);
+            $(".visually-hidden").text("CREATE ACCOUNT");
+            $(".add-role").removeClass("spinner-border");
+        }
+    });
+});
+   </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends "extenders.html" %}
+{% load static %}
+
+{% block title %}Transaction History - My Company Name{% endblock %}
+
+{% block toggle %}
+  {% if nightmode %}
+    <link href="{% static 'css/nightmode/transaction.css' %}" rel="stylesheet">
+  {% else %}
+    <link href="{% static 'css/transaction.css' %}" rel="stylesheet">
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <section class="parent-container" itemscope itemtype="https://schema.org/ItemList">
+    <header class="custom-search">
+      <h4>Transactions</h4>
+      <p class="to-grey">Your last 100 transactions.</p>
+      <p class="to-red">Click on the transaction to view the details.</p>
+      <form method="GET" action="/finder/">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search" class="search" /> <br /><br />
+        <input class="submit" type="submit" value="Search" />
+      </form>
+    </header>
+    <section class="search-result">
+      {% for data in dev %}
+        {% if data.status_code %}
+          <a href="/myreciept/{{data.id}}" class="detail jst-content" itemscope itemtype="https://schema.org/Order" title="View Transaction Details">
+            <div class="for-wifi"><i class="fa fa-wifi" aria-label="WiFi Icon"></i></div>
+            <div class="data-wifi" itemprop="description">
+              <h4>Data</h4>
+              <p class="data-desc">{{data.message}}</p>
+              <small>Ref: <span itemprop="orderNumber">{{data.reference}}</span></small>
+            </div>
+            <div class="data-amt">
+              <br />
+              <h4 itemprop="price">{{data.amount}}</h4>
+              <small>{{ data.date }}</small><br />
+              <i id="status" class="fa fa-check" aria-label="Success"></i>
+            </div>
+          </a>
+        {% else %}
+          <a href="/myreciept/{{data.id}}" class="detail jst-content" itemscope itemtype="https://schema.org/Order" title="View Transaction Details">
+            <div class="for-wifi"><i class="fa fa-wifi" aria-label="WiFi Icon" style="color: white; background-color: red"></i></div>
+            <div class="data-wifi" itemprop="description">
+              <h4>Data</h4>
+              <p class="data-desc">{{data.message}}</p>
+              <small>Ref: <span itemprop="orderNumber">{{data.reference}}</span></small>
+            </div>
+            <div class="data-amt">
+              <br />
+              <h4 itemprop="price">{{data.amount}}</h4>
+              <small style="color:red">{{ data.date }}</small><br />
+              <i id="status" class="fa fa-close" aria-label="Failure" style="color:white; background-color: red"></i>
+            </div>
+          </a>
+        {% endif %}
+      {% endfor %}
+    </section>
+  </section>
+  <br /><br /><br />
+{% endblock %}

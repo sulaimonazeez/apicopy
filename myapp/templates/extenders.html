@@ -1,0 +1,79 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <title>{% block title%} {% endblock %}</title>
+    <meta name="keywords" content="mobile top-up, airtime recharge, data bundles, buy airtime online, VTU services, mobile recharge, subscription services, data top-up, online recharge, mobile data plans">
+    <meta name="description" content="Experience fast and secure VTU services for data, airtime, electricity, GOTV, DSTV, and more. Enjoy convenient online top-ups and subscriptions with Paystar.">
+    <meta name="author" content="Sulaimon Azeez" />
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{% static 'IMG-20240819-WA0006.jpg' %}" type="image/jpg">
+    <link rel="apple-touch-icon" href="{% static 'IMG-20240819-WA0006.jpg' %}">
+    {% if nightmode %}
+      <link rel="stylesheet" href={% static "css/nightmode/home.css" %} />
+    {% else %}
+      <link rel="stylesheet" href={% static "css/home.css" %} />
+    {% endif %}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reddit+Mono:wght@200..900&display=swap" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src={% static "Js/email.js" %}></script>
+     {% block toggle %} {% endblock %}
+  </head>
+  <body>
+    <section id="messages">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </section>
+    <header style="z-index:999999999" class="header">
+      <i class="fa fa-home"></i>
+      <p style="z-index:9999999"><strong class="mt-3">Paystar</strong></p>
+      <div style="z-index:999999999" class="outter-head">
+        <i id="darkmode" class="px fa fa-moon-o"></i>
+        <i id="notify" class="fa fa-envelope"></i>
+        <span class="small-modal">1</span>
+      </div>
+    </header>
+    <div class="container-fluid">
+      {% block content %} {% endblock %}
+    </div>
+    <section class="down-fixed" style="z-index: 9999999999">
+      <div id="click1">
+        <i class="fa fa-home"></i><br />
+        <small>Home</small>
+      </div>
+      <div id="click2">
+        <i class="fa fa-newspaper-o"></i><br />
+        <small>Transaction</small>
+      </div>
+      <div id="click3">
+        <i class="fa fa-bell"></i><br />
+        <small>Notification</small>
+      </div>
+      <div id="click4">
+        <i class="fa fa-lock"></i><br/>
+        <small>Logout</small>
+      </div>
+    </section>
+    <script src={% static "Js/extender.js" %}></script>
+    <script>
+      setTimeout(function() {
+        var messages = document.getElementById('messages');
+        if (messages) {
+          messages.style.display = 'none';
+        }
+      }, 5000);
+    </script>
+  </body>
+</html>

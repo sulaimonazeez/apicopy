@@ -1,0 +1,42 @@
+{% extends "extenders.html" %}
+
+{% load static %}
+{% block title %} Notification {% endblock %}
+{% block toggle %}
+  {% if user.userprofile.night_mode %}
+    <link rel="stylesheet" href={% static "css/notify-night.css" %} />
+  {% else %}
+    <link href={% static "css/notify.css" %} rel="stylesheet" />
+  {% endif %}
+{% endblock %}
+{% block content %}
+   <div class="notification-container">
+     <div class="notify">
+       <p>All Notifications</p>
+       <h2>Notifications</h2>
+     </div>
+     <div class="notify-content">
+       <div class="f-flex">
+         <div class="messages-box" aria-label="Message Icon">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+         </div>
+         <div class="messages">
+          <h4>REFERRAL COMMISSION</h4>
+          <p>Message: Refer your friends and loved ones and get a commission on their wallet funding and data purchases.</p>
+          <p class="dates">12 Jul 24 13:43PM</p>
+         </div>
+       </div>
+       <div class="f-flex">
+         <div class="messages-box" aria-label="Message Icon">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+         </div>
+         <div class="messages">
+          <h4>PLEASE RESUME TRAFFIC</h4>
+          <p>Message: Sorry for the inconvenience.</p>
+          <p class="dates">6 Jul 24 10:43AM</p>
+         </div>
+        </div>
+     </div>
+   </div>
+   <br/><br/><br />
+{% endblock %}

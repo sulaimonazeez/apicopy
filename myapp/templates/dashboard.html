@@ -1,0 +1,117 @@
+{% extends "extenders.html" %}
+{% load static %}
+
+{% block title %} Home Page {% endblock %}
+{% block content %}
+  <div id="addBlur" class="container-fluid">
+    <section class="box-header">
+      <div class="inner-flex">
+        <h3>Hi, {{user.first_name}}</h3>
+        <h3>(Subscriber)</h3>
+      </div>
+      <div class="inner-flex">
+        <div class="wallet-tx">
+          <h3>N{{balance.balance}}</h3>
+          <h4 style="position: relative; top: -1rem">Wallet Balance</h4>
+        </div>
+        <div class="users">
+          <i class="fa fa-users"></i>
+          <h5>JOIN US</h5>
+        </div>
+      </div>
+      <div>
+        <h5 class="telegram">CLICK HERE To Join Telegram Channel</h5>
+      </div>
+    </section>
+    
+    <section class="white-header">
+      <h5>Quick Link</h5>
+      <hr />
+      <div class="inner-main">
+        <div id="upgrade"><i class="fa fa-user-secret"></i><br/><p class="vd">Upgrade</p></div>
+        <div id="myprofile"><i class="fa fa-user"></i><br/><p class="vd">Profile</p></div>
+        <div id="data"><i class="fa fa-wifi"></i><br/><p class="vd">Buy Data</p></div>
+        <div id="more"><i class="fa fa-th"></i><br/><p class="vd">More</p></div>
+      </div>
+      <hr />
+      <br />
+      <a class="no-play" href="#">CLICK HERE TO FUND YOUR WALLET</a>
+    </section>
+    
+    <section class="white-header">
+      <div class="payment-toggle">
+        <a onclick="Payvassel()" class="ex-1">Payvessel</a>
+        <a onclick="Monnify()">Monnify</a>
+        <a class="ex-2">One-Time</a>
+      </div>
+      {% if account_generate %}
+        <div id="payvessel" class="payvessels">
+          <p>Bank Name: {{ bank}} </p>
+          <p>Account Name: Paystar - </p>
+          <p id="accs" my-data={{ account_number }}>Account Number: {{ account_number }}</p>
+          <p style="color: red">Note: Automated bank transfer attracts additional charges of only.</p>
+          <button style="text-align: center" class="clip-bord">Copy Account No</button>
+        </div>
+      {% else %}
+        <div id="payvessel" class="payvessel">
+          <p>Get A Payvessel Service Bank Fpr Automated, Generate A Dedicated Account Number Now. Funding Attract 50 Only.</p>
+          <button style="text-align:center">Generate Account</button>
+        </div>
+      {% endif %}
+      <div id="monnify" class="monnify">
+        <p>Monnify is Not Available Right Now Our Team is Working hard to Fixed That Out Thanks. </p>
+        <button style="text-align: center">Generate Account</button>
+      </div>
+    </section>
+  </div><br />
+  <div class="container-fluid">
+  {% if upgrade.upgrade %}
+    <section class="modal">
+      <div class="d-flex justify">
+        <div><p style="color: green;font-weight:bold">Successful Upgraded</p><h1 class='thanks'>Thanks For Joining Our Vendor!!!</h1></div>
+        <div class="close">
+          <i class="fa fa-close"></i>
+        </div>
+      </div>
+      <div class="vendors">
+        <p>Your Account is Now Successful Upgrade</p>
+        <p>Your Data Discounts: MTN Data -3%, Airtel Data -3% Glo Data -2%</p>
+      </div>
+    </section>
+  {% else %}
+   <section class="modal">
+      <div class="d-flex justify">
+        <div><p>Confirm Transaction</p><h1 class="tk">Upgrade</h1></div>
+        <div class="close">
+          <i class="fa fa-close"></i>
+        </div>
+      </div>
+      <div class="vendor">
+        <p>You are about to upgrade to an Agent Account. You can view our pricing page for details about the discounts available for Agents.</p>
+        <p>You would be charged a total of N2000 for this service. To continue, enter your transaction pin below.</p>
+        <form method="post" action="/home?uprade=true" autocomplete="false">
+          {% csrf_token %}
+          <label for="network" class="labeled">Transaction Pin</label>
+          <input autocomplete="off" placeholder="Default Pin 1111" type="tel" name="pin" class="fixed-price" /><br/><br />
+          <input class="submit-data" type="submit" value="Continue" />
+        </form>
+      </div>
+    </section>
+    {% endif %}
+    
+    {% if fund %}
+      {% include "success.html" %}
+    {% endif %}
+    
+    {% if pin %}
+       {% include "message.html" %}
+    {% endif %}
+    
+    {% if sufficient %}
+      {% include "message.html" %}
+    {% endif %}
+  </div>
+{% endblock %}
+{% block toggle %}
+  <script src={% static "Js/toggles.js" %}></script>
+{% endblock %}

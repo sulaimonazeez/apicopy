@@ -1,0 +1,189 @@
+body {
+  background:linear-gradient(#fff  #FFC5C5)
+}
+
+.moon-s {
+      background-color: lightgrey;
+      padding: 10px;
+      color: black;
+      position: relative;
+      left: 90px;
+      border-radius: 2vw;
+    }
+    .moon-s:hover {
+      background-color: black;
+      color: white;
+    }
+    .keeper {
+      color: #040273;
+      font-size: 2em;
+      font-weight:bold;
+    }
+    .mono {
+      font-optical-sizing: auto;
+      font-style: normal;
+    }
+    .call-up {
+      position: relative;
+      top: -20px;
+    }
+    .outer-progress > .inner-progress {
+      display: block;
+      background-color: green;
+      width: 23rem;
+      height: 0.8vw;
+    }
+    .dls {
+      width: 100%;
+    }
+    .self-container > p {
+      margin-top: 6vw;
+    }
+    .self-container > h4 {
+      margin-bottom: 5vw;
+      margin-top: -1vw;
+      color: grey;
+      font-weight: 777;
+    }
+    .connect-h {
+      color: grey;
+      font-weight: 777;
+    }
+    .justify-content-between {
+      margin-top: 3vw;
+    }
+    .channel-section {
+      margin-top: 9vw;
+    }
+    .user-image {
+      width: 100%;
+    }
+    #remote > img {
+      width: 100%;
+    }
+    footer {
+  background-color: #343a40; /* Dark background color */
+  color: #ffffff; /* Light text color */
+}
+
+footer h5 {
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
+footer ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+footer ul li {
+  margin-bottom: 0.5rem;
+}
+
+footer a {
+  color: #ffffff; /* Light color for links */
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.social-links a {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.social-links a:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+footer .container {
+  max-width: 1140px;
+}
+
+footer .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+footer .text-center {
+  text-align: center;
+}
+
+footer .text-danger {
+  color: #dc3545; /* Red color for the fire emoji */
+}
+    
+    .ios {
+      width: 7.5rem 
+    }
+    .android {
+      width:8rem
+    }
+    .login {
+      width: 7rem;
+    }
+    .signup {
+      width: 7.5rem
+    }
+    
+    .messages {
+    list-style-type: none;
+    padding: 0;
+}
+.messages .success {
+    color: green;
+    background-color: #dff0d8;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    z-index: 999999999999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0.1rem;
+    font-weight: bold;
+}
+.messages .error {
+    color: red;
+    background-color: #f2dede;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    z-index: 9999999999999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    left: 0.1rem;
+    font-weight: bold;
+}
+    @media only screen and (min-width: 768px) {
+      
+      .user-image{
+        width: 12rem;
+      }
+      #row1 {
+        margin-top: 8rem;
+        position: relative;
+        width: 85%;
+      }
+      #row2 {
+        width: 85%;
+        position: relative;
+        top: 8rem;
+      }
+      #row2 > .col-sm-6 {
+        width: 19rem;
+      }
+      #row2 > .col-sm-6 > img {
+        border-radius: 0.5vw;
+      }
+      .outer-progress > .inner-progress {
+        width: 42rem;
+      }
+    }

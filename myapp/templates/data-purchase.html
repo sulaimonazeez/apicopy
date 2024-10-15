@@ -1,0 +1,307 @@
+{% extends "extenders.html" %}
+{% load static %}
+
+{% block title %} Buy Data Subcription {% endblock %}
+{% block content %}
+   <div class="purchase-container">
+    <div class="purchase-form">
+      <div class="form-head">
+        <p class="avail-cap">Data For All Network</p>
+        <h2 class="buy-cap">Buy Data</h2>
+        <div class="alternative-choose">
+          <div id="airtel"><img src='https://paystar.pythonanywhere.com/static/airtel.png' alt="Airtel" /></div>
+          <div id="mtn"><img src='https://paystar.pythonanywhere.com/static/mtn.png' alt="MTN" /></div>
+          <div id="glo"><img src='https://paystar.pythonanywhere.com/static/glo.png' alt="Glo" /></div>
+          <div id="9mobile"><img src='https://paystar.pythonanywhere.com/static/9mobile.png' alt="9mobile" /></div>
+        </div>
+      </div>
+      <hr /> <br/>
+     <form method="POST" action="/purchase" id="submitor">
+       {% csrf_token %}
+       <label for="network" class="labels">Network</label>
+       <select required class="selecting" id="network" name="network">
+         <option value="" disabled selected="">Select Network</option>
+         <option value="airtel">Airtel</option>
+         <option value="mtn">MTN</option>
+         <option value="glo">GLO</option>
+         <option value="mobile9">9mobile</option>
+       </select>
+       <br />
+       <label for="network" class="labels">Data Type</label>
+       <select required class="sme-cop" id="network" name="sme">
+         <option value="" disabled selected="">Select Data Type</option>
+         <option value="sme">SME</option>
+         <option value="coporate">Coporate</option>
+       </select>
+       <br/>
+       <label for="network" class="labels">Data Plan</label>
+       <select required class="data-amounts" id="network" name="dataType">
+         <option value="" disabled selected="">Select Data Plan</option>
+       </select>
+       <br />
+       <label for="network" class="labels">Phone Number</label>
+       <input required placeholder="phone number" type="tel" name="phone" class="fixed-price" /><br/>
+       <label for="network" class="labels">Amount</label>
+       <input placeholder="Amount to pay" class="fixed-price" id="fixed-price" type="text" value="" name="amount" readonly/> <br /><br />
+       <input class="submit-data" id="trigger" type="submit" value="Buy Data" />
+     </form>
+    </div>
+     <div class="modaled" style="position:fixed; top: 30%">
+      <div class="vendors">
+        <p style="color: blue"><small>Confirm Transaction</small></p>
+        <h3>Continue?</h3>
+        <form autocomplete="false" id="make">
+          {% csrf_token %}
+          <label for="network" class="labeled">Transaction Pin</label>
+          <input required autocomplete="off" placeholder="Default Pin 1111" type="number" name="pin" class="fixed-price" id="pins"/><br/><br />
+          <input class="btn-submit" type="submit" value="Continue" />
+        </form>
+      </div>
+    </div>
+    <div class="prt">
+      {% include "message.html" %}
+    </div>
+    
+    <div class="error-msg">
+      {% include "validator.html" %}
+    </div>
+    
+   </div><br/><br /><br /><br /> <br />
+{% endblock %}
+
+{% block toggle %}
+   <script src="{% static "Js/toggles.js" %}"></script>
+   <script>
+     $(document).ready(() => {
+    var isOpen = false;
+    let isValidate = "{{ pin|escapejs }}";
+    let bala = "{{ balanced|escapejs }}";
+
+    $(".btn-submit").on("click", (event) => {
+        event.preventDefault();
+        let cRC = $("#pins").val();
+        let str = cRC.toString();
+
+        if (str === isValidate) {
+            $(".modaled").hide();
+            $(".purchase-form").removeClass("addBlur");
+
+            $("#submitor").off("submit").submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serializeArray();
+                var isValid = true;
+                var errorMessage = "";
+
+                $.each(formData, function(index, field) {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        errorMessage += field.name + " cannot be empty.\n";
+                    }
+
+                    if (field.name === "amount") {
+                        let amt = field.value.replace("₦", "");
+                        if (parseFloat(amt) > parseFloat(bala)) {
+                            errorMessage = "Insufficient Balance please add funds";
+                            isValid = false;
+                        }
+                    }
+
+                    if (field.name === "sme" || field.name === "dataType" || field.name === "phone") {
+                        if (!field.value) {
+                            isValid = false;
+                            errorMessage += "Please select a valid option for " + field.name + ".\n";
+                        }
+                    }
+                });
+
+                if (!isValid) {
+                    $(".user-message").text(errorMessage);
+                    $(".alert").show();
+                } else {
+                    $(this).unbind('submit').submit(); 
+                }
+            });
+
+            $("#submitor").submit();
+        } else {
+            $(".prt").show();
+            $(".modaled").hide();
+            $(".purchase-form").removeClass("addBlur");
+        }
+    });
+
+    $("#trigger").on("click", () => {
+        $(".modaled").show();
+        $(".purchase-form").addClass("addBlur");
+    });
+
+    $("#submitor").on("submit", function(event) {
+        event.preventDefault();
+    });
+
+    $("#make").on("submit", function(event) {
+        event.preventDefault();
+    });
+
+    const dataPlans = {
+        airtel: {
+            corporate: [
+                ["AIRTEL 500MB CORPORATE - 30 Days", 144],
+                ["AIRTEL 1GB CORPORATE - 30 Days", 288],
+                ["AIRTEL 2GB CORPORATE - 30 Days", 580],
+                ["AIRTEL 5GB CORPORATE - 30 Days", 1450],
+                ["AIRTEL 10GB CORPORATE - 30 Days", 2900]
+            ],
+            promo: [
+                ["AIRTEL 100MB PROMO - 1 Day", 70],
+                ["AIRTEL 300MB PROMO - 2 Days", 132],
+                ["AIRTEL 1GB PROMO - 2 Days", 238],
+                ["AIRTEL 2GB PROMO - 2 Days", 350],
+                ["AIRTEL 3GB PROMO - 7 Days", 560],
+                ["AIRTEL 4GB PROMO - 30 Days", 1070],
+                ["AIRTEL 10GB PROMO - 30 Days", 2095],
+                ["AIRTEL 15GB PROMO - 30 Days", 3150]
+            ]
+        },
+        mtn: {
+            sme: [
+                ["MTN 500MB SME - 30 Days", 138],
+                ["MTN 1GB SME - 30 Days", 270],
+                ["MTN 2GB SME - 30 Days", 542],
+                ["MTN 3GB SME - 30 Days", 810],
+                ["MTN 5GB SME - 30 Days", 1400],
+                ["MTN 10GB SME - 30 Days", 2700]
+            ],
+            corporate: [
+                ["MTN 500MB CORPORATE - 30 Days", 142],
+                ["MTN 1GB CORPORATE - 30 Days", 280],
+                ["MTN 2GB CORPORATE - 30 Days", 563],
+                ["MTN 3GB CORPORATE - 30 Days", 850],
+                ["MTN 5GB CORPORATE - 30 Days", 1400],
+                ["MTN 10GB CORPORATE - 30 Days", 2800]
+            ]
+        },
+        glo: {
+            corporate: [
+                ["GLO 500MB CORPORATE - 30 Days", 143],
+                ["GLO 1GB CORPORATE - 30 Days", 280],
+                ["GLO 2GB CORPORATE - 30 Days", 575],
+                ["GLO 3GB CORPORATE - 30 Days", 850],
+                ["GLO 5GB CORPORATE - 30 Days", 1400],
+                ["GLO 10GB CORPORATE - 30 Days", 2800]
+            ]
+        },
+        mobile9: {
+            corporate: [
+                ["9MOBILE 500MB CORPORATE - 30 Days", 80],
+                ["9MOBILE 1GB CORPORATE - 30 Days", 148],
+                ["9MOBILE 2GB CORPORATE - 30 Days", 300],
+                ["9MOBILE 3GB CORPORATE - 30 Days", 457],
+                ["9MOBILE 4GB CORPORATE - 30 Days", 590],
+                ["9MOBILE 5GB CORPORATE - 30 Days", 750],
+                ["9MOBILE 10GB CORPORATE - 30 Days", 1475]
+            ]
+        }
+    };
+
+    const availability = {
+        airtel: ["corporate", "promo"],
+        mtn: ["sme", "corporate", "promo"],
+        glo: ["corporate"],
+        mobile9: ["corporate"]
+    };
+
+    const networkSelect = $(".selecting");
+    const dataTypeSelect = $(".sme-cop");
+    const dataPlanSelect = $(".data-amounts");
+    const amountInput = $("#fixed-price");
+
+    function updateDataTypes() {
+        const network = networkSelect.val();
+
+        dataTypeSelect.empty().append('<option value="" disabled selected>Select Data Type</option>');
+
+        if (network) {
+            const availableDataTypes = availability[network];
+            for (let i = 0; i < availableDataTypes.length; i++) {
+                const option = $('<option></option>')
+                    .attr('value', availableDataTypes[i])
+                    .text(availableDataTypes[i].charAt(0).toUpperCase() + availableDataTypes[i].slice(1));
+                dataTypeSelect.append(option);
+            }
+        }
+
+        dataPlanSelect.empty().append('<option value="" disabled selected>Select Data Plan</option>');
+        amountInput.val('');
+    }
+
+    function updateDataPlans() {
+        const network = networkSelect.val();
+        const dataType = dataTypeSelect.val();
+
+        dataPlanSelect.empty().append('<option value="" disabled selected>Select Data Plan</option>');
+
+        if (network && dataType) {
+            const plans = dataPlans[network][dataType];
+            for (let i = 0; i < plans.length; i++) {
+                const option = $('<option></option>')
+                    .attr('value', plans[i][0])
+                    .text(`${plans[i][0]}`);
+                dataPlanSelect.append(option);
+            }
+        }
+
+        amountInput.val('');
+    }
+
+    function updateAmount() {
+        const network = networkSelect.val();
+        const dataType = dataTypeSelect.val();
+        const dataPlan = dataPlanSelect.val();
+
+        if (network && dataType && dataPlan) {
+            const plans = dataPlans[network][dataType];
+            const selectedPlan = plans.find(plan => plan[0] === dataPlan);
+            if (selectedPlan) {
+                amountInput.val(`₦${selectedPlan[1]}`);
+            }
+        } else {
+            amountInput.val('');
+        }
+    }
+
+    networkSelect.on('change', () => {
+        updateDataTypes();
+        updateDataPlans();
+        updateAmount();
+    });
+
+    dataTypeSelect.on('change', () => {
+        updateDataPlans();
+        updateAmount();
+    });
+
+    dataPlanSelect.on('change', updateAmount);
+
+    $("#airtel").on("click", () => {
+        networkSelect.val("airtel").trigger("change");
+    });
+
+    $("#mtn").on("click", () => {
+        networkSelect.val("mtn").trigger("change");
+    });
+
+    $("#glo").on("click", () => {
+        networkSelect.val("glo").trigger("change");
+    });
+
+    $("#9mobile").on("click", () => {
+        networkSelect.val("mobile9").trigger("change");
+    });
+
+    $(".close-message").on("click", () => {
+        $(".alert").hide();
+    });
+});
+   </script>
+{% endblock %}

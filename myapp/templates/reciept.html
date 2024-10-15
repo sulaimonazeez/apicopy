@@ -1,0 +1,127 @@
+<!--- import Tr from '../../static/admin/js/vendor/select2/i18n/tr'; -->
+{% extends "extenders.html" %}
+
+{% load static %}
+{% block title %} My Reciept - PayStar{% endblock %}
+{% block content %}
+
+{% if reciept.status_code %}
+<div class="parent-reciept">
+  <div class="reciept">
+    <div class="reciept-head">
+      <i class="fa fa-thumbs-up"></i><br/>
+      <p>Transaction Details</p>
+      <h2>Transaction</h2>
+    </div>
+    <div class="table-container">
+      <table class="table table-bordered">
+       <tbody>
+        <tr class="table-active">
+          <td>Transaction No</td>
+          <td>{{reciept.reference}}</td>
+        </tr>
+        <tr>
+          <td>Service</td>
+          <td>{{reciept.network}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Description</td>
+          <td>{{reciept.message}}
+          </td>
+        </tr>
+        <tr>
+          <td>Amount</td>
+          <td>{{reciept.amount}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Old Balance</td>
+          <td>{{old}}</td>
+        </tr>
+        <tr>
+          <td>New Balance</td>
+          <td>{{reciept.balance.balance}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Status</td>
+            {% if reciept.status_code %}
+              <td style="color: green; font-weight: bold">Transaction Successful</td>
+            {% else %}
+               <td>Transaction Failed</td>
+            {% endif %}
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>{{reciept.date}}</td>
+        </tr>
+       </tbody>
+      </table>
+      <br/>
+      <a href="/invoice/{{reciept.id}}" class="user-reciept">View User Reciept</a>
+    </div>
+  </div>
+</div>
+<br /><br /><br /><br />
+
+{% else %}
+ <div class="parent-reciept">
+  <div class="reciept">
+    <div class="reciept-head">
+      <i style="color: red; border: solid 2px red" class="fa fa-close"></i><br/>
+      <p>Transaction Details</p>
+      <h2>Transaction</h2>
+    </div>
+    <div class="table-container">
+      <table class="table table-bordered">
+       <tbody>
+        <tr class="table-danger">
+          <td>Transaction No</td>
+          <td>{{reciept.reference}}</td>
+        </tr>
+        <tr>
+          <td>Service</td>
+          <td>{{reciept.network}}</td>
+        </tr>
+        <tr class="table-danger">
+          <td>Description</td>
+          <td>
+            {{reciept.message}}
+          </td>
+        </tr>
+        <tr>
+          <td>Amount</td>
+          <td>{{reciept.amount}}</td>
+        </tr>
+        <tr class="table-danger">
+          <td>Old Balance</td>
+          <td>{{reciept.balance.balance}}</td>
+        </tr>
+        <tr>
+          <td>New Balance</td>
+          <td>{{reciept.balance.balance}}</td>
+        </tr>
+        <tr class="table-danger">
+          <td>Status</td>
+            {% if reciept.status_code %}
+              <td style="color: green; font-weight: bold">Transaction Successful</td>
+            {% else %}
+               <td>Transaction Failed</td>
+            {% endif %}
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>{{reciept.date}}</td>
+        </tr>
+       </tbody>
+      </table>
+      <br/>
+      <a style="background-color:red" href="/invoice/{{reciept.id}}" class="user-reciept">View User Reciept</a>
+    </div>
+  </div>
+</div>
+<br /><br /><br /><br />
+{% endif %}
+{% endblock %}
+
+{% block toggle %}
+  <script src={% static "Js/toggles.js" %}></script>
+{% endblock %}

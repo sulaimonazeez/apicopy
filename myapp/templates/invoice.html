@@ -1,0 +1,300 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      .parent-reciept > .reciept {
+  background-color: white;
+  width: 92%;
+  border-radius: 5vw;
+  padding: 2vw;
+  color: black;
+  margin: 2vw;
+  margin-top: 6vw;
+  padding-bottom: 5vw;
+  padding-bottom: 5vw;
+}
+
+.reciept-head {
+  text-align: center;
+}
+
+
+.reciept-head > i {
+  color: green;
+  border: solid 3px green;
+  padding: 4vw;
+  border-radius: 50vw;
+  font-size: 13vw;
+  text-align: center;
+}
+
+.reciept-head > p {
+  color: blue;
+  font-size: 13px;
+  position: relative;
+  top: 0.8vw;
+}
+
+.reciept-head > h2 {
+  position: relative;
+  top: -3vw;
+}
+
+
+
+/* Basic table styling */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+/* Table header styling */
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Table head background color and text color */
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+/* Striped rows */
+.table tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hoverable rows */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Responsive table */
+.table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table border */
+.table-bordered {
+    border: 1px solid #dee2e6;
+}
+
+.table-bordered th,
+.table-bordered td {
+    border: 1px solid #dee2e6;
+}
+
+/* Table borderless */
+.table-borderless th,
+.table-borderless td,
+.table-borderless thead th,
+.table-borderless tbody + tbody {
+    border: 0;
+}
+
+/* Table small cells */
+.table-sm th,
+.table-sm td {
+    padding: 0.3rem;
+}
+
+/* Text alignment classes */
+.table .text-right {
+    text-align: right;
+}
+
+.table .text-center {
+    text-align: center;
+}
+
+.table .text-left {
+    text-align: left;
+}
+
+/* Contextual classes */
+.table-primary,
+.table-primary > th,
+.table-primary > td {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.table-secondary,
+.table-secondary > th,
+.table-secondary > td {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+.table-success,
+.table-success > th,
+.table-success > td {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.table-danger,
+.table-danger > th,
+.table-danger > td {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.table-warning,
+.table-warning > th,
+.table-warning > td {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.table-info,
+.table-info > th,
+.table-info > td {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.table-light,
+.table-light > th,
+.table-light > td {
+    background-color: #fdfdfe;
+    color: #818182;
+}
+
+.table-dark,
+.table-dark > th,
+.table-dark > td {
+    background-color: #d6d8d9;
+    color: #1b1e21;
+}
+
+/* Active row */
+.table-active,
+.table-active > th,
+.table-active > td {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Active state for table rows */
+.table-hover .table-primary:hover {
+    background-color: #b8daff;
+    color: #004085;
+}
+
+.table-hover .table-secondary:hover {
+    background-color: #d6d8db;
+    color: #383d41;
+}
+
+.table-hover .table-success:hover {
+    background-color: #c3e6cb;
+    color: #155724;
+}
+
+.table-hover .table-danger:hover {
+    background-color: #f5c6cb;
+    color: #721c24;
+}
+
+.table-hover .table-warning:hover {
+    background-color: #ffe8a1;
+    color: #856404;
+}
+
+.table-hover .table-info:hover {
+    background-color: #bee5eb;
+    color: #0c5460;
+}
+
+.table-hover .table-light:hover {
+    background-color: #ececf6;
+    color: #818182;
+}
+
+.table-hover .table-dark:hover {
+    background-color: #c6c8ca;
+    color: #1b1e21;
+}
+
+
+.user-reciept {
+  color: white;
+  background-color: green;
+  padding: 3vw;
+  border-radius: 2vw;
+  border:none;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="parent-reciept">
+  <div class="reciept">
+    <div class="reciept-head">
+      <i class="fa fa-thumbs-up"></i><br/>
+      <p>Transaction Details</p>
+      <h2>Transaction</h2>
+    </div>
+    <div class="table-container">
+      <table class="table table-bordered">
+       <tbody>
+        <tr class="table-active">
+          <td>Transaction No</td>
+          <td>{{reciept.transaction_id}}</td>
+        </tr>
+        <tr>
+          <td>Service</td>
+          <td>{{reciept.service}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Description</td>
+          <td>Purchase of {{reciept.data_amount}} 30 Days <br/>
+          Plan for phone number {{reciept.phone}}
+          </td>
+        </tr>
+        <tr>
+          <td>Amount</td>
+          <td>{{reciept.amount}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Old Balance</td>
+          <td>{{old}}</td>
+        </tr>
+        <tr>
+          <td>New Balance</td>
+          <td>{{reciept.balance.balance}}</td>
+        </tr>
+        <tr class="table-active">
+          <td>Status</td>
+            {% if reciept.status %}
+              <td style="color: green; font-weight: bold">Transaction Successful</td>
+            {% else %}
+               <td>Transaction Failed</td>
+            {% endif %}
+        </tr>
+        <tr>
+          <td>Date</td>
+          <td>{{reciept.date}}</td>
+        </tr>
+       </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  </body>
+</html>

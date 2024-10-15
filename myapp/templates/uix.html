@@ -1,0 +1,527 @@
+<!Doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      body {
+         font-family: Arial, sans-serif;
+         background-color: #f0f0f0;
+         margin: 0;
+         padding: 0;
+      }
+      
+      .container-fluid header {
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-between;
+        padding: 0.65rem;
+      }
+      .profile .profile-image {
+        width: 20%;
+        cursor: pointer;
+      }
+      
+      .notifications .fa-bell-o {
+        color: #ff1493;
+        background-color: #f0f0f0;
+        padding: 1rem;
+        border-radius: 50vw;
+        cursor: pointer;
+      }
+      .board-panel .bord-greeting {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.65rem;
+        margin: 0.75rem;
+        margin-top:-0.60rem;
+      }
+      .bord-greeting .select {
+        height: 0.5rem;
+      }
+      .select select {
+        color: #ff1493;
+        font-weight:bold;
+        border: none;
+        outline: none;
+        background-color: #ffffff;
+        padding: 0.60rem;
+        margin-top: 0.4rem;
+        border-radius: 2vw;
+      }
+      
+      .board-panel .cpu-board {
+        background-color: #d21f6c;
+        display: block;
+        height: 7.5rem;
+        margin: 1rem;
+        border-radius: 4vw 4vw 0 0;
+        z-index: 9999999999;
+        margin-top: -1rem;
+      }
+      
+      .make-inline {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        color: white;
+      }
+      .make-inline > * {
+        margin-top: 0.75rem;
+      }
+      .plus .fa-plus {
+        color: white;
+        background: linear-gradient(#FFC0CB, #ff1493);
+        padding: 1.5rem;
+        border-radius: 50vw;
+        text-align: center;
+        width: 1rem;
+        cursor: pointer;
+
+      }
+      
+      .make-inline .make-plus {
+        text-align: center;
+      }
+      .blc {
+        font-family: 'Open Sans' sans-serif;
+        font-weight: bold;
+      }
+      .board-panel .account-grid {
+        background-color: #ff1493;
+        height: 2.7rem;
+        display: block;
+        margin: 1rem;
+        margin-top: -1rem;
+        border-radius: 0 0 3vw 3vw;
+        padding: 0.20rem;
+        display: flex;
+        justify-content: space-between;
+      }
+      .account-grid .fa-clone {
+        color: white;
+        position: relative;
+        top: 0.80rem;
+        right: 0.50rem;
+        cursor: pointer;
+      }
+      .account-grid p {
+        position: relative;
+        left: 2%;
+        color: white;
+        font-size: 12px;
+      }
+      
+      .marque .inner-marque {
+        margin: 1rem;
+        background-color: #FFC0CB;
+        height: 3rem;
+        border-left: solid 1vw #d21f6c;
+        border-radius: 0 2vw 0 2vw;
+        border-right: solid 1vw #d21f6c;
+      }
+      .marque-flex {
+        display: flex;
+        justify-content: space-between;
+      }
+      .marque-flex .inner-flex {
+        display: flex;
+      }
+      .inner-flex {
+        margin-right: 4rem;
+      }
+      .inner-flex small {
+        color: #d21f6c;
+        font-weight: bold;
+        margin-top: 1rem;
+        margin-right: 3rem;
+      }
+      .inner-flex .airtime-btn {
+        text-decoration: none;
+        color: white;
+        background-color: #d21f6c;
+        border-radius: 0 2vw 0 2vw;
+        padding: 0.25vw;
+        width: 6rem;
+        margin-top: 0.60rem;
+        text-align: center;
+      }
+      
+      .quick-action {
+        background-color: #ffffff;
+        margin: 1rem;
+        border-radius: 3vw;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        height: 8rem;
+        padding: 2px;
+        padding: 0.75rem;
+        margin-top: -0.25rem;
+      }
+      
+      .quickly-flex {
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+        
+      }
+      .quickly-flex .flx {
+        text-align: center;
+      }
+      .flx p {
+        font-size: 12px;
+      }
+      
+      .flx {
+        cursor: pointer;
+      }
+      .flx div {
+        color: white;
+        background-color: #87ceeb;
+        padding: 1rem;
+        width: 1.5rem;
+        border-radius: 2vw;
+      }
+      .flx > div > i {
+        font-size: 20px;
+      }
+      .quick-action > * {
+        margin-top: 0;
+      }
+      
+      .sm div {
+        background-color: #ffc5c5;
+        color: #d21f6c;
+      }
+      .usr div {
+        background-color: lightgreen;
+        color: green;
+      }
+      
+      .data div {
+        background-color: #ffffcc;
+        color: #daa520;
+      }
+      .down-fixed {
+        position: fixed;
+        bottom: 0;
+        background-color: white;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        left: 0;
+        text-align: center;
+      }
+
+      .down-fixed > div {
+        text-align: center;
+        cursor: pointer;
+      }
+      .down-fixed > * {
+        padding: 1rem;
+      }
+      .recent-transaction {
+        background-color: #ffffff;
+        margin: 1rem;
+        border-radius: 3vw;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 2px;
+        padding: 0.75rem;
+        margin-top: -0.25rem;
+      }
+      
+      .recent-transaction .recent-header {
+        display: flex;
+        justify-content: space-between;
+        margin-top: -0.60rem;
+      }
+      .recent-header a {
+        text-decoration: none;
+        color: #d21f6c;
+        font-weight: bold;
+        margin-top: 1.2rem;
+      }
+      
+      .cbg {
+        background-color: #f0f0f0;
+        border-radius: 2vw;
+        display: flex;
+        justify-content: space-between;
+        margin: 0.40rem;
+        text-decoration: none;
+      }
+      
+      .cbg div {
+        
+      }
+      .tb h5 {
+        color: black;
+      }
+      .cbg .mobile i {
+        background-color: #ffffcc;
+        color: #d21f6c;
+        font-size: 2rem;
+        padding: 0.50rem;
+        border-radius: 50%;
+        width: 2rem;
+        text-align: center;
+      }
+      .cbg .mobile {
+        padding: 0.75rem;
+      }
+      .tb small {
+        position: relative;
+        top: -1.4rem;
+        font-weight: bold;
+        color: grey;
+        font-size: 10px;
+        line-height: 1;
+      }
+      .cbg .tb {
+        width: 30rem;
+        line-height: 1;
+      }
+      
+      .success {
+        text-align: right;
+        padding: 0.5rem;
+      }
+      .success p {
+        color: green;
+        font-weight: bold;
+      }
+      
+      .make-flex {
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .make-flex a {
+        text-decoration: none;
+        color: white;
+        background-color: #d21f6c;
+        border-radius: 0 2vw 0 2vw;
+        padding: 0.50vw;
+        width: 9rem;
+        margin-top: 0.60rem;
+        text-align: center;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header>
+        <div class="profile">
+          <img class="profile-image" alt="Profile Image" src={% static "download.png" %} />
+        </div>
+        <div class="notifications" id="notify">
+          <i class="fa fa-bell-o"></i>
+        </div>
+      </header>
+      <section class="board-panel">
+        <div class="bord-greeting">
+          <div><p><strong>Good Day, {{user.first_name}}</strong></p></div>
+          <div class="select">
+           <select>
+             <option value="NG">NG</option>
+           </select>
+          </div>
+        </div>
+        <div class="cpu-board">
+          <div class="make-inline">
+            <div>
+              <small>Wallet Balance <i class="fa fa-eye"></i></small>
+              <h3 class="blc"><strong>NGN {{ balance.balance }}</strong></h3>
+            </div>
+            <div class="make-plus">
+              <div class="plus"><i class="fa fa-plus"></i></div>
+              <small class="blc-text"><strong>Add Money</strong></small>
+            </div>
+          </div>
+        </div>
+      {% if account_number %}
+        <div class="account-grid">
+          <p my-data={{ account_number }} id="accs">{{ bank }} || {{ account_number }}</p>
+          <i class="fa fa-clone" aria-hidden="true"></i>
+        </div>
+      {% else %}
+         <div class="account-grid make-flex">
+           <a href="/generate/account/">Generate Account</a>
+           <a href="/payment/initiate/">One Time Payment</a>
+        </div>
+      {% endif %}
+      </section>
+      
+      <section class="marque">
+        <marquee class="inner-marque">
+          <div class="marque-flex">
+            <div class="inner-flex">
+              <small>Get Airtime at 1% off</small>
+              <a href="/airtime" class="airtime-btn">Buy Now</a>
+            </div>
+          </div>
+        </marquee>
+      </section>
+      
+      <section class="quick-action">
+        <h5>Quick Action</h5>
+        <div class="quickly-flex">
+          <div class="flx" id="airtime">
+            <div><i class="fa fa-phone"></i></div>
+            <p>Airtime</p>
+          </div>
+          <div class="flx data" id="data">
+            <div><i class="fa fa-mobile-phone"></i></div>
+            <p>Data</p>
+          </div>
+          <div class="flx sm" id="laptop">
+            <div><i class="fa fa-laptop"></i></div>
+            <p>Cable Tv</p>
+          </div>
+          <div class="flx sm" id="refferal">
+            <div><i class="fa fa-users"></i></div>
+            <p>Refferals</p>
+          </div>
+          <div class="flx usr" id="service">
+            <div><i class="fa fa-th"></i></div>
+            <p>All Services</p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="recent-transaction">
+        <div class="recent-header"><h5><strong>Recent Transactions</strong></h5><a href="/history">see all</a></div>
+        {% for transaction in transact %}
+         {% if transaction.data_plan == "airtel" or transaction.data_plan == "mtn" or transaction.data_plan == "glo" or transaction.data_plan == "9mobile" %}
+          <a href="/myreciept/{{transaction.id}}" class="cbg">
+            <div class="mobile"><i class="fa fa-mobile-phone"></i></div>
+            <div class="tb">
+              <h5><strong>Airtime Topup</strong></h5>
+              <small>{{ transaction.message }}</small>
+            </div>
+            <div class="tb success">
+              <p>{{ transaction.status }}</p>
+              <h5>NGN{{ transaction.amount }}</h5>
+              <small>{{ transaction.date }}</small>
+            </div>
+          </a>
+          {% else %}
+            <a href="/myreciept/{{transaction.id}}" class="cbg">
+            <div class="mobile"><i class="fa fa-mobile-phone"></i></div>
+            <div class="tb">
+              <h5><strong>Data Topup</strong></h5>
+              <small>{{ transaction.message }}</small>
+            </div>
+            <div class="tb success">
+              <p>{{ transaction.status }}</p>
+              <h5>NGN{{ transaction.amount }}</h5>
+              <small>{{ transaction.date }}</small>
+            </div>
+          </a>
+          {% endif %}
+        {% endfor %}
+      </section><br/><br/><br/><br/><br/>
+      
+      
+      
+      
+      
+      
+      
+      
+      <section class="down-fixed" style="z-index: 9999999999">
+      <div id="click1">
+        <i class="fa fa-home"></i><br />
+        <small>Home</small>
+      </div>
+      <div id="click2">
+        <i class="fa fa-newspaper-o"></i><br />
+        <small>Transaction</small>
+      </div>
+      <div id="click3">
+        <i class="fa fa-bell"></i><br />
+        <small>Notification</small>
+      </div>
+      <div id="click4">
+        <i class="fa fa-lock"></i><br/>
+        <small>Logout</small>
+      </div>
+    </section>
+    </div>
+    <script>
+      $(document).ready(() =>{
+        $(".plus").on("click", () =>{
+          let linkers = document.createElement("a");
+          linkers.setAttribute("href", "/payment/initiate/")
+          linkers.click();
+        })
+        $('.profile-image').click(()=>{
+          let pps = document.createElement("a");
+          pps.setAttribute("href", "/profile");
+          pps.click();
+        });
+        $(".fa-clone").on("click", ()=>{
+          const datas = $("#accs").attr("my-data");
+          navigator.clipboard.writeText(datas);
+        });
+        $("#airtime").on("click", ()=>{
+          let pps = document.createElement("a");
+          pps.setAttribute("href", "/airtime/");
+          pps.click();
+        });
+        $("#data").on("click", ()=>{
+          let pps = document.createElement("a");
+          pps.setAttribute("href", "/databundle");
+          pps.click();
+        });
+        $("#refferal").on("click", ()=>{
+          let pps = document.createElement("a");
+          pps.setAttribute("href", "/profile/");
+          pps.click();
+        })
+        let fst = document.getElementById("click1");
+        let scd = document.getElementById("click2");
+        let trd = document.getElementById("click3");
+        let frt = document.getElementById("click4");
+        let notify = document.getElementById("notify");
+       let darkmode = document.getElementById("darkmode");
+
+        
+       fst.addEventListener("click", () =>{
+         let element = document.createElement("a");
+         element.setAttribute("href", "/home");
+         element.click();
+      });
+      scd.addEventListener("click", () =>{
+       let element = document.createElement("a");
+       element.setAttribute("href", "/history");
+       element.click();
+     });
+    trd.addEventListener("click", () =>{
+      let element = document.createElement("a");
+      element.setAttribute("href", "/notification");
+      element.click();
+    });
+    frt.addEventListener("click", () =>{
+      let element = document.createElement("a");
+      element.setAttribute("href", "/logout");
+      element.click();
+   });
+
+   notify.addEventListener("click", () => {
+     let toGo = document.createElement("a");
+     toGo.setAttribute("href", "/notification");
+     toGo.click();
+  })
+
+  darkmode.addEventListener("click", () =>{
+    let mode = document.createElement("a");
+    mode.setAttribute("href", "/nightmode");
+    mode.click();
+  })
+});
+    </script>
+  </body>
+</html>

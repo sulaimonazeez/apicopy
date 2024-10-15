@@ -1,0 +1,101 @@
+{% extends "extenders.html" %}
+
+{% load static %}
+{% block title %} My Profile{% endblock %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="profile-header">
+      <div class="payment-toggle">
+        <a id="profiles" class="ex-1">Profile</a>
+        <a style="color:white" id="password">Password</a>
+        <a style="color: white" id="pin" class="ex-2">Pin</a>
+      </div>
+    <div class="profiles">
+      <div class="user-profiles">
+        <p style="color: #B59410"><small>Account Details</small></p>
+        <h3 class="ref">Basic Information</h3>
+        <div>
+          <div class="m-flex">
+            <i class="fa fa-user"></i>
+            <p><strong>Name: </strong>{{profile.user.first_name}} {{profile.user.last_name}}</p>
+          </div>
+          <div class="m-flex">
+            <i class="fa fa-envelope"></i>
+            <p><strong>Email: </strong>{{profile.user.email}}</p>
+          </div>
+          <div class="m-flex">
+            <i class="fa fa-user"></i>
+            <p><strong>Phone: </strong>{{profile.phone_number}}</p>
+          </div>
+          <div class="m-flex">
+            <i class="fa fa-globe"></i>
+            <p><strong>NIN: </strong>{{profile.nin}}</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p style="color: #B59410"><small>Referral</small></p>
+        <h3 class="ref">Referral Link</h3>
+        <small class="url">https://127.0.0.1:8000/mobile/register/?referral={{profile.phone_number}}</small><br /><br /><br />
+        <div>
+          <button class="btn-profile cp">Copy Link</button>
+          <button class="btn-profile cm">View Commission</button>
+        </div>
+      </div>
+    </div>
+      <div class="password">
+        <p style="color: #B59410"><small>Update Login Details</small></p>
+        <h3 class="ref">Login Details</h3>
+        <form method="POST" action="/change/password/">
+          {% csrf_token %}
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Old Password </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Old Password" type="password" name="current_password" class="fixed-price" id="pwd-old" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>New Password </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="New Password" type="password" name="new_password" class="fixed-price" id="pwd-new" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Retype password</small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Retype Password" type="password" name="confirm_password" class="fixed-price" id="pwd-retype" /><br/><br />
+          <input style="background-color: #B59410" class="submit-data" type="submit" value="Update Password" />
+        </form>
+      </div>
+      <div class="pin">
+        <p style="color: #B59410"><small>Update Login Details</small></p>
+        <h3 class="ref">Login Details</h3>
+        <p></p>
+        <form method="POST" action="/change/pin/">
+          {% csrf_token %}
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Old Pin </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Old Pin" type="number" name="oldpin" class="fixed-price" id="pwd-old" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>New Pin </small></label>
+          <input style="border: solid 1px lightgrey" placeholder="New Pin" type="number" name="newpin" class="fixed-price" id="pwd-new" /><br/>
+          
+          <label style="color: #B59410" for="pwd-old" class="labels"><small>Retype Pin</small></label>
+          <input style="border: solid 1px lightgrey" placeholder="Retype Pin" type="number" name="retypepin" class="fixed-price" id="pwd-retype" /><br/><br />
+          <input style="background-color: #B59410" class="submit-data" type="submit" value="Update Pin" />
+        </form>
+      </div>
+    </div>
+    {% if ischange %}
+      {% include "success.html" %}
+    {% endif %}
+    
+    {% if is_match %}
+      {% include "message.html" %}
+    {% endif %}
+    
+    {% if old_password %}
+      {% include "message.html" %}
+    {% endif %}
+    
+    {% if same_password %}
+      {% include "message.html" %}
+    {% endif %}
+  </div>
+  <br /><br />
+{% endblock %}
+
+{% block toggle %}
+  <script src={% static "Js/toggles.js" %}></script>
+{% endblock %}
